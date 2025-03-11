@@ -1,19 +1,10 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="vi">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>My CV</title>
-    <link rel="stylesheet" href="styles.css">
     <style>
-        img
-        {
-            display: block;
-            margin: auto;
-            width: 30%;
-            padding-bottom: 30px;
-            border-radius: 50%;
-        }
         body {
             font-family: Arial, sans-serif;
             margin: 0;
@@ -28,6 +19,13 @@
             padding: 20px;
             box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
             border-radius: 10px;
+        }
+        img {
+            display: block;
+            margin: auto;
+            width: 30%;
+            padding-bottom: 30px;
+            border-radius: 50%;
         }
         header {
             text-align: center;
@@ -59,11 +57,46 @@
         .contact p {
             font-weight: bold;
         }
+        label {
+            display: block;
+            font-weight: bold;
+            margin-bottom: 5px;
+        }
+        input, textarea {
+            display: block;
+            width: 100%;
+            margin-bottom: 10px;
+            padding: 10px;
+            border: 2px solid #ccc;
+            border-radius: 5px;
+            outline: none;
+        }
+        input:focus, textarea:focus {
+            border-color: #2980b9;
+        }
+        button {
+            background-color: #28a745;
+            color: white;
+            padding: 10px;
+            border: none;
+            cursor: pointer;
+            border-radius: 5px;
+            width: 100%;
+        }
+        button:hover {
+            background-color: #218838;
+        }
+        #statusMessage {
+            color: green;
+            text-align: center;
+            font-weight: bold;
+            margin-top: 10px;
+        }
     </style>
 </head>
 <body>
     <div class="container">
-        <img src="./assets/tải xuống.jpg"/>
+        <img src="/my_cv/assets/tải xuống.jpg"/>
         <header>
             <h1>Tran Xuan Kien</h1>
             <p>Web Developer</p>
@@ -97,5 +130,51 @@
             <p>Phone: +1234567890</p>
         </section>
     </div>
+    
+    <div class="container">
+        <h2>Liên Hệ</h2>
+        <form id="contactForm">
+            <label for="name">Họ và tên:</label>
+            <input type="text" id="name" required>
+    
+            <label for="email">Email:</label>
+            <input type="email" id="email" required>
+    
+            <label for="message">Tin nhắn:</label>
+            <textarea id="message" required></textarea>
+    
+            <button type="submit">Gửi</button>
+        </form>
+        <p id="statusMessage" style="display: none;">Tin nhắn đã được gửi!</p>
+    </div>
+    
+    <script>
+        document.getElementById("contactForm").addEventListener("submit", function(event) {
+            event.preventDefault();
+            var name = document.getElementById("name").value.trim();
+            var email = document.getElementById("email").value.trim();
+            var message = document.getElementById("message").value.trim();
+            
+            if (name === "" || email === "" || message === "") {
+                alert("Vui lòng nhập đầy đủ thông tin.");
+                return;
+            }
+    
+            var emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            if (!emailPattern.test(email)) {
+                alert("Vui lòng nhập địa chỉ email hợp lệ.");
+                return;
+            }
+    
+            var statusMessage = document.getElementById("statusMessage");
+            statusMessage.style.display = "block";
+            statusMessage.textContent = "Tin nhắn đã được gửi!";
+    
+            setTimeout(function() {
+                statusMessage.style.display = "none";
+                document.getElementById("contactForm").reset();
+            }, 3000);
+        });
+    </script>
 </body>
 </html>
